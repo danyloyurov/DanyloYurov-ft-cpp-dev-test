@@ -10,6 +10,7 @@ class Parser {
         std::string parseExpression(const std::string& expression);
     private:
         bool isExpressionValid(const std::string& expression) const;
+        bool isSyntaxisValid(const std::string& expression) const;
         bool isOperandsValid(const std::string& expression) const;
         bool isOperatorsValid(const std::string& expression) const;
         bool isBracketsValid(const std::string& expression) const;

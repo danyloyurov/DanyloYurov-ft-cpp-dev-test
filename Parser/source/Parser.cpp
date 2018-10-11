@@ -88,12 +88,24 @@ bool Parser::isExpressionValid(const std::string& expression) const {
     if( expression.empty() )
         return false;
 
-    if( this->isBracketsValid(expression) &&
+    if( this->isSyntaxisValid(expression) &&
+        this->isBracketsValid(expression) &&
         this->isOperandsValid(expression) &&
         this->isOperatorsValid(expression) )
         return true;
 
     return false;
+}
+
+bool Parser::isSyntaxisValid(const std::string& expression) const {
+    for(auto iter = expression.begin(); iter < expression.end(); iter++) {
+        if( !mHelper.isDigit(iter) &&
+            !mHelper.isOperator(iter) &&
+            !mHelper.isSpecialSymbol(iter) )
+            return false;
+    }
+
+    return true;
 }
 
 bool Parser::isOperandsValid(const std::string& expression) const {
