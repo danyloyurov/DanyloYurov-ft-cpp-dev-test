@@ -8,7 +8,6 @@
 class Calculator {
     public:
         void startCalculation();
-        void endCalculation();
     private:
         Bookkeeper mBookkeeper;
         Parser mParser;
