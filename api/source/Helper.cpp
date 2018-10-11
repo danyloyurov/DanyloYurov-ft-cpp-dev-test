@@ -23,3 +23,10 @@ bool Helper::isOperator(const std::string::const_iterator iter) const {
 
     return false;
 }
+
+bool Helper::isSpecialSymbol(const std::string::const_iterator iter) const {
+    if( *iter != '(' && *iter != ')' && *iter != ' ' )
+        return false;
+
+    return true;
+}
