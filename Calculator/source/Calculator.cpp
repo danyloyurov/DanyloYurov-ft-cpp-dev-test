@@ -1,4 +1,5 @@
 #include "Calculator.hpp"
+#include "UIPainter.hpp"
 
 #include <iostream>
 
@@ -17,20 +18,19 @@ void Calculator::startCalculation() {
 
     isFileOpened = mFileManager.readFile(file_path, file_name, expression);
 
-    if( !isFileOpened )
+    if( !isFileOpened ) {
+        UIPainter::Instance().showMessage("File does not exist!");
         return;
+    }
 
     expression = mParser.parseExpression(expression);
 
     if(expression == "") {
-        std::cout << "Incorrect syntaxis of expression!" << std::endl;
+        UIPainter::Instance().showMessage("Incorrect syntaxis of expression!");
         return;
     }
 
     calculation_result = mBookkeeper.calculateExpression(expression);
 
-    isFileOpened = mFileManager.writeFile(file_path, file_name, std::to_string(calculation_result));
-
-    if( !isFileOpened )
-        return;
+    UIPainter::Instance().showMessage(std::to_string(calculation_result));
 }

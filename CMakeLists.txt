@@ -16,8 +16,13 @@ Bookkeeper/source/Bookkeeper.cpp
 Calculator/source/Calculator.cpp
 Parser/source/Parser.cpp
 FileManager/source/FileManager.cpp
-api/source/Helper.cpp)
+api/source/Helper.cpp
+api/source/UIPainter.cpp)
+
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS})
 
 include_directories(${INCLUDE})
 
 add_executable(${PROJECT_NAME} ${SOURCE})
+target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES})
