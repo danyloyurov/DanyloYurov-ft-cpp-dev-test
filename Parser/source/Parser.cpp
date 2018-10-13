@@ -59,6 +59,16 @@ std::string Parser::parseExpression(const std::string& expression) {
                 break;
             }
             case '(':
+                if(*(iter + 1) == '-') {
+                    int left_bracket_index = (expression.end() - expression.begin()) - (expression.end() - iter) + 1;
+                    int right_bracket_index =  expression.substr(left_bracket_index, expression.length() - 1).find_first_of(")") + left_bracket_index;
+
+                    output_expression += expression.substr( left_bracket_index, right_bracket_index - left_bracket_index ) + ",";
+
+                    iter += right_bracket_index - left_bracket_index + 1;
+                    continue;
+                }
+
                 operations.push(*iter);
                 break;
             case ')':
