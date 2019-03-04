@@ -7,3 +7,7 @@
 
 _**Example:**_
 _./tcalc "1337-37*322-(228^14/15*88)"_
+
+## License:
+
+Apache License 2.0
