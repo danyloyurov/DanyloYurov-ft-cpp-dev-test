@@ -1,16 +1,9 @@
-# String calculator
-
-### How to build
-
-1. sudo apt-get install libsdl2-dev (only with dpkg)
-2. git clone git@github.com:danyloyurov/DanyloYurov-ft-cpp-dev-test.git
-3. cd [path]
-4. mkdir tmp && cd tmp
-5. cmake ../ && make
+# Terminal Calculator
 
 ### Getting started
 
-1. Create file with arithmetic expression
-2. Build program
-3. Run it  by calling ./calculator
-4. Follow instructions on screen
+1. Build source code
+2. Run ./tcalc with expression as argument
+
+_**Example:**_
+_./tcalc "1337-37*322-(228^14/15*88)"_
