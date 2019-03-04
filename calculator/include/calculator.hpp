@@ -6,7 +6,7 @@
 
 class Calculator {
     public:
-        void StartCalculation();
+        void StartCalculation(const std::string incoming_expression);
     private:
         Bookkeeper bookkeeper_;
         Parser parser_;

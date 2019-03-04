@@ -15,7 +15,7 @@ class Parser {
         bool IsOperatorsValid(const std::string& expression) const;
         bool IsBracketsValid(const std::string& expression) const;
         int GetOperandsCount(const std::string& expression) const;
-    private:
+
         static const std::map<char, int> operations_priorities_;
         Helper helper_;
 };
