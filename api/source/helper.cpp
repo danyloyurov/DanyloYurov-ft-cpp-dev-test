@@ -1,16 +1,16 @@
 #include <sstream>
-#include "Helper.hpp"
+#include "helper.hpp"
 
-std::string Helper::getDigit(const std::string::const_iterator iter) const {
+std::string Helper::GetDigit(const std::string::const_iterator iter) const {
     std::string digit;
 
-    for(auto s = iter; this->isDigit(s); s++)
+    for(auto s = iter; this->IsDigit(s); s++)
         digit += *s;
 
     return digit;
 }
 
-bool Helper::isDigit(const std::string::const_iterator iter) const {
+bool Helper::IsDigit(const std::string::const_iterator iter) const {
     if( ((*iter >= '0' && *iter <= '9') || *iter == '.') ||
         ((*iter == '-' && (*(iter + 1) >= '0' && *(iter + 1) <= '9')) && !(*(iter - 1) >= '0' && *(iter - 1) <= '9')) )
         return true;
@@ -18,11 +18,11 @@ bool Helper::isDigit(const std::string::const_iterator iter) const {
     return false;
 }
 
-bool Helper::isOperator(const std::string::const_iterator iter) const {
-    if(*iter == '-' && this->isDigit(iter - 1))
+bool Helper::IsOperator(const std::string::const_iterator iter) const {
+    if(*iter == '-' && this->IsDigit(iter - 1))
         return true;
 
-    if(*iter == '-' && this->isDigit(iter + 1))
+    if(*iter == '-' && this->IsDigit(iter + 1))
         return false;
 
     if( (((*iter >= '*' && *iter <= '/') && *iter != '.') || *iter == '^'))
@@ -31,7 +31,7 @@ bool Helper::isOperator(const std::string::const_iterator iter) const {
     return false;
 }
 
-bool Helper::isSpecialSymbol(const std::string::const_iterator iter) const {
+bool Helper::IsSpecialSymbol(const std::string::const_iterator iter) const {
     if( *iter != '(' && *iter != ')' && *iter != ' ' )
         return false;
 

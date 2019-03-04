@@ -1,14 +1,14 @@
-#include "Bookkeeper.hpp"
+#include "bookkeeper.hpp"
 
 #include <stack>
 
-double Bookkeeper::calculateExpression(const std::string& expression) const {
+double Bookkeeper::CalculateExpression(const std::string& expression) const {
     std::stack<double> operands;
 
     for(auto iter = expression.begin(); iter < expression.end(); iter++) {
 
-        if( mHelper.isDigit( iter ) ) {
-            std::string operand = mHelper.getDigit( iter );
+        if( helper_.IsDigit( iter ) ) {
+            std::string operand = helper_.GetDigit( iter );
             operands.push( std::stof(operand) );
             iter += (operand.length() - 1);
         } else {

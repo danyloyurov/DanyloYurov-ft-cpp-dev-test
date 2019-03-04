@@ -1,12 +1,12 @@
-#include "Parser.hpp"
+#include "parser.hpp"
 #include <stack>
 
-const std::map<char, int> Parser::mOperationsPriorities {   {'+', 1}, {'-', 1},
-                                                            {'*', 2}, {'/', 2},
-                                                            {'^', 3} };
+const std::map<char, int> Parser::operations_priorities_ { {'+', 1}, {'-', 1},
+                                                           {'*', 2}, {'/', 2},
+                                                           {'^', 3} };
 
-std::string Parser::parseExpression(const std::string& expression) {
-    if( !this->isExpressionValid(expression) )
+std::string Parser::ParseExpression(const std::string& expression) {
+    if( !this->IsExpressionValid(expression) )
         return "";
 
     std::string output_expression;
@@ -45,8 +45,8 @@ std::string Parser::parseExpression(const std::string& expression) {
                     continue;
                 }
 
-                auto newOperationPrio = mOperationsPriorities.find( *iter )->second;
-                auto lastOperationPrio = mOperationsPriorities.find( operations.top() )->second;
+                auto newOperationPrio = operations_priorities_.find( *iter )->second;
+                auto lastOperationPrio = operations_priorities_.find( operations.top() )->second;
 
                 if( newOperationPrio > lastOperationPrio ) {
                     operations.push(*iter);
@@ -84,7 +84,7 @@ std::string Parser::parseExpression(const std::string& expression) {
             case ' ': /*avoiding spaces*/
                 continue;
             default: /*digits case*/
-                std::string operand = mHelper.getDigit( iter );
+                std::string operand = helper_.GetDigit( iter );
                 output_expression += (operand + ",");
                 iter += (operand.length() - 1);
                 break;
@@ -94,34 +94,34 @@ std::string Parser::parseExpression(const std::string& expression) {
     return output_expression;
 }
 
-bool Parser::isExpressionValid(const std::string& expression) const {
+bool Parser::IsExpressionValid(const std::string& expression) const {
     if( expression.empty() )
         return false;
 
-    if( this->isSyntaxisValid(expression) &&
-        this->isBracketsValid(expression) &&
-        this->isOperandsValid(expression) &&
-        this->isOperatorsValid(expression) )
+    if( this->IsSyntaxisValid(expression) &&
+        this->IsBracketsValid(expression) &&
+        this->IsOperandsValid(expression) &&
+        this->IsOperatorsValid(expression) )
         return true;
 
     return false;
 }
 
-bool Parser::isSyntaxisValid(const std::string& expression) const {
+bool Parser::IsSyntaxisValid(const std::string& expression) const {
     for(auto iter = expression.begin(); iter < expression.end(); iter++) {
-        if( !mHelper.isDigit(iter) &&
-            !mHelper.isOperator(iter) &&
-            !mHelper.isSpecialSymbol(iter) )
+        if( !helper_.IsDigit(iter) &&
+            !helper_.IsOperator(iter) &&
+            !helper_.IsSpecialSymbol(iter) )
             return false;
     }
 
     return true;
 }
 
-bool Parser::isOperandsValid(const std::string& expression) const {
+bool Parser::IsOperandsValid(const std::string& expression) const {
     for(auto iter = expression.begin(); iter < expression.end(); iter++) {
-        if( mHelper.isDigit(iter) ) {
-            std::string operand = mHelper.getDigit(iter);
+        if( helper_.IsDigit(iter) ) {
+            std::string operand = helper_.GetDigit(iter);
             int endIdx = operand.length() - 1;
 
             if( *operand.begin() == '.' || *operand.end() == '.' )
@@ -144,20 +144,20 @@ bool Parser::isOperandsValid(const std::string& expression) const {
     return true;
 }
 
-bool Parser::isOperatorsValid(const std::string& expression) const {
-    if( mHelper.isOperator(expression.begin()) || mHelper.isOperator(expression.end()) )
+bool Parser::IsOperatorsValid(const std::string& expression) const {
+    if( helper_.IsOperator(expression.begin()) || helper_.IsOperator(expression.end()) )
         return false;
 
     int operators_count = 0;
-    int operands_count = this->getOperandsCount(expression);
+    int operands_count = this->GetOperandsCount(expression);
 
     for(auto iter = expression.begin(); iter < expression.end(); iter++) {
-        if( mHelper.isOperator(iter) ) {
+        if( helper_.IsOperator(iter) ) {
 
             if( *iter == '/' && *(iter + 1) == '0' )
                 return false;
 
-            if( mHelper.isOperator(iter + 1) )
+            if( helper_.IsOperator(iter + 1) )
                 return false;
 
             operators_count++;
@@ -171,7 +171,7 @@ bool Parser::isOperatorsValid(const std::string& expression) const {
     return true;
 }
 
-bool Parser::isBracketsValid(const std::string& expression) const {
+bool Parser::IsBracketsValid(const std::string& expression) const {
     if( *expression.begin() == ')' || *expression.end() == '(' )
         return false;
 
@@ -198,14 +198,14 @@ bool Parser::isBracketsValid(const std::string& expression) const {
     return static_cast<bool>(left_bracket_counter) ? false : true;
 }
 
-int Parser::getOperandsCount(const std::string& expression) const {
+int Parser::GetOperandsCount(const std::string& expression) const {
     int operands_count = 0;
 
     for(auto iter = expression.begin(); iter < expression.end(); iter++) {
-        if( mHelper.isDigit(iter) ) {
+        if( helper_.IsDigit(iter) ) {
             operands_count++;
 
-            iter += mHelper.getDigit(iter).length();
+            iter += helper_.GetDigit(iter).length();
         }
     }
 

@@ -1,9 +1,9 @@
-#include "Calculator.hpp"
+#include "calculator.hpp"
 
 int main () {
     Calculator calculator;
 
-    calculator.startCalculation();
+    calculator.StartCalculation();
 
     return 0;
 }
